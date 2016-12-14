@@ -9,8 +9,11 @@ RUN apt-get update && apt-get install -y software-properties-common && \
 
 RUN apt-get update && \
       apt-get install -y php5.6 php5.6-mbstring php5.6-mcrypt php5.6-mysql \
-      php5.6-xml php5.6-curl php5.6-cli bzip2 && apt-get dist-upgrade -y && \
-      apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+      php5.6-xml php5.6-curl php5.6-cli php-pear bzip2 && \
+      apt-get dist-upgrade -y && apt-get clean && \
+      pear channel-discover pear.bovigo.org && \
+      pear install bovigo/vfsStream-beta && \
+      rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
       wget https://phar.phpunit.de/phpunit.phar -O /bin/phpunit && \
       chmod +x /bin/phpunit
 
